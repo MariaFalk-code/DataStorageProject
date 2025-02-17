@@ -31,11 +31,11 @@ public class ProjectEntity
     public int StatusId { get; set; }
 
     [ForeignKey(nameof(Manager))]
-    public int ManagerId { get; set; }
+    public int? ManagerId { get; set; }
 
     // Navigation properties
     public CustomerEntity Customer { get; set; } = null!;
     public StatusEntity Status { get; set; } = null!;
-    public EmployeeEntity? Manager { get; set; }
+    public EmployeeEntity Manager { get; set; } = null!;
     public ICollection<ServiceUsageEntity> ServiceUsages { get; set; } = [];
 }
