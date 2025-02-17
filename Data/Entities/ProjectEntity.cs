@@ -36,6 +36,6 @@ public class ProjectEntity
     // Navigation properties
     public CustomerEntity Customer { get; set; } = null!;
     public StatusEntity Status { get; set; } = null!;
-    public EmployeeEntity Manager { get; set; } = null!;
+    public EmployeeEntity? Manager { get; set; }
     public ICollection<ServiceUsageEntity> ServiceUsages { get; set; } = [];
 }
