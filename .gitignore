@@ -1,0 +1,14 @@
+# Ignore build & system files
+bin/
+obj/
+.vs/
+.idea/
+.vscode/
+
+# Ignore database files
+*.mdf
+*.db
+
+# Ignore user-specific settings
+appsettings.json
+appsettings.Development.json
