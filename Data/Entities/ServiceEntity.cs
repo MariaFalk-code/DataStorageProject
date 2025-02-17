@@ -16,7 +16,6 @@ public class ServiceEntity
     public string? Description { get; set; }
 
     [Required]
-    [MaxLength(10)]
     [Column(TypeName = "decimal(10,2)")]
     public decimal Price { get; set; }
 

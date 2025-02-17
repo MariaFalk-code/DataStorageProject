@@ -9,7 +9,6 @@ public class ServiceUsageEntity
     public int Id { get; set; }
 
     [Required]
-    [MaxLength(10)]
     [Column(TypeName = "decimal(10,2)")]
     public decimal Quantity { get; set; }
 

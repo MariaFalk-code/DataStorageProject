@@ -39,13 +39,13 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
             .HasOne(ca => ca.Customer)
             .WithMany(c => c.CustomerAddresses)
             .HasForeignKey(ca => ca.CustomerId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<CustomerAddressEntity>()
             .HasOne(ca => ca.Address)
             .WithMany(a => a.CustomerAddresses)
             .HasForeignKey(ca => ca.AddressId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<ServiceUsageEntity>()
             .HasOne(su => su.Service)
@@ -60,7 +60,8 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
         modelBuilder.Entity<ProjectEntity>()
             .HasOne(p => p.Customer)
             .WithMany(c => c.Projects)
-            .HasForeignKey(p => p.CustomerId);
+            .HasForeignKey(p => p.CustomerId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<ProjectEntity>()
             .HasOne(p => p.Status)
@@ -71,6 +72,7 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
             .HasOne(p => p.Manager)
             .WithMany(e => e.ManagedProjects)
             .HasForeignKey(p => p.ManagerId)
-            .HasPrincipalKey(e => e.EmployeeNumber);
+            .HasPrincipalKey(e => e.EmployeeNumber)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }
