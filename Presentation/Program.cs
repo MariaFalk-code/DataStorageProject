@@ -22,5 +22,6 @@ var host = Host.CreateDefaultBuilder()
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IServiceRepository, ServiceRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<IAddressRepository, AddressRepository>();
     })
     .Build();
