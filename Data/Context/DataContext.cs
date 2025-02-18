@@ -106,8 +106,8 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
                 ProjectNumber = "P-1001",
                 Name = "Website Development",
                 Description = "Creating a modern web app.",
-                StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow.AddMonths(3),
+                StartDate = new DateTime(2025, 2, 12),
+                EndDate = new DateTime(2025, 6, 12),
                 CustomerId = 1,
                 StatusId = 2,
                 ManagerId = 1
@@ -117,8 +117,8 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
                 ProjectNumber = "P-1002",
                 Name = "Security Education",
                 Description = "",
-                StartDate = DateTime.UtcNow.AddMonths(-2),
-                EndDate = DateTime.UtcNow.AddMonths(-1),
+                StartDate = new DateTime(2025, 1, 1),
+                EndDate = new DateTime(2025, 2, 11),
                 CustomerId = 1,
                 StatusId = 3,
                 ManagerId = 1
@@ -128,8 +128,8 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
                 ProjectNumber = "P-1003",
                 Name = "Website Development 2",
                 Description = "Creating a more modern web app.",
-                StartDate = DateTime.UtcNow.AddMonths(3),
-                EndDate = DateTime.UtcNow.AddMonths(6),
+                StartDate = new DateTime(2025, 6, 13),
+                EndDate = new DateTime(2025, 12, 12),
                 CustomerId = 1,
                 StatusId = 1,
                 ManagerId = 3

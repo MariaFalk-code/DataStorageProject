@@ -56,7 +56,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.ContactInfoEntity", b =>
@@ -89,7 +89,7 @@ namespace Data.Migrations
                     b.HasIndex("CustomerId")
                         .IsUnique();
 
-                    b.ToTable("ContactInfo");
+                    b.ToTable("ContactInfo", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.CustomerAddressEntity", b =>
@@ -109,7 +109,7 @@ namespace Data.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("CustomerAddresses");
+                    b.ToTable("CustomerAddresses", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.CustomerEntity", b =>
@@ -132,7 +132,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.EmployeeEntity", b =>
@@ -155,7 +155,7 @@ namespace Data.Migrations
 
                     b.HasKey("EmployeeNumber");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.ProjectEntity", b =>
@@ -196,7 +196,7 @@ namespace Data.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.ServiceEntity", b =>
@@ -226,7 +226,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Services");
+                    b.ToTable("Services", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.ServiceUsageEntity", b =>
@@ -253,7 +253,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("ServiceUsages");
+                    b.ToTable("ServiceUsages", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.StatusEntity", b =>
@@ -271,7 +271,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Statuses");
+                    b.ToTable("Statuses", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.ContactInfoEntity", b =>
