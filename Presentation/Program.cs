@@ -24,7 +24,3 @@ var host = Host.CreateDefaultBuilder()
         services.AddScoped<ICustomerRepository, CustomerRepository>();
     })
     .Build();
-
-
-
-await host.RunAsync();

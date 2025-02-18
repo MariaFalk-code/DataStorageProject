@@ -9,7 +9,7 @@ public class StatusEntity
 
     [Required]
     [MaxLength(50)]
-    public string Name { get; set; } = null!; // "Ej påbörjad", "Pågående", "Avslutad"
+    public string Name { get; set; } = null!; // "Not Started", "Ongoing", "Completed"
 
     // Navigation properties
     public ICollection<ProjectEntity> Projects { get; set; } = [];
