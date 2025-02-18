@@ -16,12 +16,12 @@ public class ProjectRepository(DataContext context) : BaseRepository<ProjectEnti
             .ToListAsync();
     }
 
-    public async Task<ProjectEntity?> GetProjectWithCustomerAndServiceUsageAsync(string ProjectNumber)
+    public async Task<ProjectEntity?> GetProjectWithCustomerAndServiceUsageAsync(string projectNumber)
     {
         return await base._context.Projects
             .Include(p => p.Customer)
             .Include(p => p.ServiceUsages)
             .ThenInclude(su => su.Service)
-            .FirstOrDefaultAsync(p => p.ProjectNumber == ProjectNumber);
+            .FirstOrDefaultAsync(p => p.ProjectNumber == projectNumber);
     }
 }
