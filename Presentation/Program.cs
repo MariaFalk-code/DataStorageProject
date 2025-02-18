@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
+using Data.Repositories;
+using Data.Interfaces;
 
 //Got help from ChatGPT4o with this code for configuring the database connection.
 var host = Host.CreateDefaultBuilder()
@@ -14,11 +16,15 @@ var host = Host.CreateDefaultBuilder()
         // Add DbContext to the DI container
         services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(connectionString));
+
+        // Register repositories
+        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        services.AddScoped<IProjectRepository, ProjectRepository>();
+        services.AddScoped<IServiceRepository, ServiceRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
     })
     .Build();
 
-//Gets the DataContext instance from DI (example usage)
-using var scope = host.Services.CreateScope();
-var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+
 
 await host.RunAsync();
