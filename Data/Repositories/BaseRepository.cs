@@ -10,7 +10,9 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
     protected readonly DataContext _context = context;
     protected readonly DbSet<TEntity> _dbSet = context.Set<TEntity>();
 
-    public virtual async Task<TEntity> CreateAsync(TEntity entity)
+    //CRUD Operations
+    //Create
+    public async Task<TEntity> CreateAsync(TEntity entity)
     {
         if (entity == null)
         {
@@ -28,7 +30,9 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
             throw new Exception("Could not create entity", ex);
         }
     }
-    public virtual async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> expression)
+
+    //Read
+    public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> expression)
     {
         if (expression == null)
         {
@@ -37,7 +41,7 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
         return await _dbSet.AnyAsync(expression);
     }
 
-    public virtual async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression)
+    public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression)
     {
         if (expression == null)
         {
@@ -47,12 +51,13 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
         return await _dbSet.FirstOrDefaultAsync(expression) ?? null!;
     }
 
-    public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
+    public async Task<IEnumerable<TEntity>> GetAllAsync()
     {
         return await _dbSet.ToListAsync();
     }
 
-    public virtual async Task<TEntity> UpdateAsync(TEntity entity) //Full Update
+    //Update
+    public async Task<TEntity> UpdateAsync(TEntity entity) //Full Update
     {
         if (entity == null)
         {
@@ -70,7 +75,7 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
         }
     }
 
-    public virtual async Task<TEntity> PartialUpdateAsync(Expression<Func<TEntity, bool>> expression, TEntity updatedEntity) //Selective Update
+    public async Task<TEntity> PartialUpdateAsync(Expression<Func<TEntity, bool>> expression, TEntity updatedEntity) //Selective Update
     {
         if (updatedEntity == null)
         {
@@ -95,7 +100,8 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
         }
     }
 
-    public virtual async Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> expression)
+    //Delete
+    public async Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> expression)
     {
         if (expression == null)
         {
