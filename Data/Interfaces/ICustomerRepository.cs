@@ -8,7 +8,7 @@ public interface ICustomerRepository : IBaseRepository<CustomerEntity>
     Task<CustomerEntity?> GetCustomerWithAddressesAsync(int customerId);
     Task<CustomerEntity?> GetCustomerWithContactInfoAsync(int customerId);
     Task<CustomerEntity?> GetCustomerWithAllContactDetailsAsync(int customerId);
-    Task<CustomerEntity?>GetCustomerWithProjectsAsync(int customerId);
+    Task<CustomerEntity?>GetCustomerWithActiveProjectsAsync(int customerId);
     Task<CustomerEntity?>GetCustomerWithAllRelatedDataAsync(int customerId);
 
     //Get all customers with related data

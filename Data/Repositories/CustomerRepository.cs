@@ -40,12 +40,12 @@ public class CustomerRepository(DataContext context) : BaseRepository<CustomerEn
         }
         catch (Exception ex) { throw new Exception("Could not retrieve customer with related contact details", ex); }
     }
-    public async Task<CustomerEntity?> GetCustomerWithProjectsAsync(int customerId)
+    public async Task<CustomerEntity?> GetCustomerWithActiveProjectsAsync(int customerId)
     {
         try
         {
             return await base._context.Customers
-            .Include(c => c.Projects)
+            .Include(c => c.Projects.Where(p => p.Status.Name != "Completed"))
                 .ThenInclude(p => p.Status)
             .FirstOrDefaultAsync(c => c.Id == customerId);
         }
