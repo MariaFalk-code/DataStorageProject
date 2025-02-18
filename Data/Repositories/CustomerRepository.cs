@@ -8,27 +8,7 @@ namespace Data.Repositories;
 public class CustomerRepository(DataContext context) : BaseRepository<CustomerEntity>(context), ICustomerRepository
 {
     //Get specific customer with related data
-    public async Task<CustomerEntity?> GetCustomerWithAddressesAsync(int customerId)
-    {
-        try {
-                return await base._context.Customers
-                .Include(c => c.CustomerAddresses)
-                    .ThenInclude(ca => ca.Address)
-                .FirstOrDefaultAsync(c => c.Id == customerId);
-            }
-
-        catch (Exception ex) { throw new Exception("Could not retrieve customer with related addresses", ex); }
-    }
-    public async Task<CustomerEntity?> GetCustomerWithContactInfoAsync(int customerId)
-    {
-        try {
-            return await base._context.Customers
-            .Include(c => c.ContactInfo)
-            .FirstOrDefaultAsync(c => c.Id == customerId);
-        }
-        catch (Exception ex) { throw new Exception("Could not retrieve customer with related contact info", ex); }
-    }
-    public async Task<CustomerEntity?> GetCustomerWithAllContactDetailsAsync(int customerId)
+    public async Task<CustomerEntity?> GetCustomerWithContactDetailsAsync(int customerId)
     {
         try
         {
@@ -67,18 +47,6 @@ public class CustomerRepository(DataContext context) : BaseRepository<CustomerEn
     }
 
     //Get all customers with related data
-    public async Task<IEnumerable<CustomerEntity>> GetAllCustomersWithAddressesAsync()
-    {
-        try
-        {
-            return await base._context.Customers
-            .Include(c => c.CustomerAddresses)
-                .ThenInclude(ca => ca.Address)
-            .ToListAsync();
-        }
-        catch (Exception ex) { throw new Exception("Could not retrieve customers with related addresses", ex); }
-    }
-
     public async Task<IEnumerable<CustomerEntity>> GetAllCustomersWithContactInfoAsync()
     {
         try
