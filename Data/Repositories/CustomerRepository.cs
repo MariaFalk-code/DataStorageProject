@@ -19,41 +19,85 @@ public class CustomerRepository(DataContext context) : BaseRepository<CustomerEn
 
         catch (Exception ex) { throw new Exception("Could not retrieve customer with related addresses", ex); }
     }
-    public Task<CustomerEntity?> GetCustomerWithAllContactDetailsAsync(int customerId)
+    public async Task<CustomerEntity?> GetCustomerWithContactInfoAsync(int customerId)
     {
-        throw new NotImplementedException();
+        try {
+            return await base._context.Customers
+            .Include(c => c.ContactInfo)
+            .FirstOrDefaultAsync(c => c.Id == customerId);
+        }
+        catch (Exception ex) { throw new Exception("Could not retrieve customer with related contact info", ex); }
     }
-    public Task<CustomerEntity?> GetCustomerWithAllRelatedDataAsync(int customerId)
+    public async Task<CustomerEntity?> GetCustomerWithAllContactDetailsAsync(int customerId)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await base._context.Customers
+                .Include(c => c.ContactInfo)
+                .Include(c => c.CustomerAddresses)
+                    .ThenInclude(ca => ca.Address)
+                .FirstOrDefaultAsync(c => c.Id == customerId);
+        }
+        catch (Exception ex) { throw new Exception("Could not retrieve customer with related contact details", ex); }
     }
-    public Task<CustomerEntity?> GetCustomerWithProjectsAsync(int customerId)
+    public async Task<CustomerEntity?> GetCustomerWithProjectsAsync(int customerId)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await base._context.Customers
+            .Include(c => c.Projects)
+                .ThenInclude(p => p.Status)
+            .FirstOrDefaultAsync(c => c.Id == customerId);
+        }
+        catch (Exception ex) { throw new Exception("Could not retrieve customer with related projects", ex); }
     }
-    public Task<CustomerEntity?> GetCustomerWithContactInfoAsync(int customerId)
+    public async Task<CustomerEntity?> GetCustomerWithAllRelatedDataAsync(int customerId)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await base._context.Customers
+            .Include(c => c.ContactInfo)
+            .Include(c => c.CustomerAddresses)
+                .ThenInclude(ca => ca.Address)
+            .Include(c => c.Projects)
+                .ThenInclude(p => p.Status)
+            .FirstOrDefaultAsync(c => c.Id == customerId);
+        }
+        catch (Exception ex) { throw new Exception("Could not retrieve customer with all related data", ex); }
     }
 
     //Get all customers with related data
-    public Task<IEnumerable<CustomerEntity>> GetAllCustomersWithAddressesAsync()
+    public async Task<IEnumerable<CustomerEntity>> GetAllCustomersWithAddressesAsync()
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await base._context.Customers
+            .Include(c => c.CustomerAddresses)
+                .ThenInclude(ca => ca.Address)
+            .ToListAsync();
+        }
+        catch (Exception ex) { throw new Exception("Could not retrieve customers with related addresses", ex); }
     }
 
-    public Task<IEnumerable<CustomerEntity>> GetAllCustomersWithAllContactDetailsAsync()
+    public async Task<IEnumerable<CustomerEntity>> GetAllCustomersWithContactInfoAsync()
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await base._context.Customers
+            .Include(c => c.ContactInfo)
+            .ToListAsync();
+        }
+        catch (Exception ex) { throw new Exception("Could not retrieve customers with related contact info", ex); }
     }
-
-    public Task<IEnumerable<CustomerEntity>> GetAllCustomersWithContactInfoAsync()
+    public async Task<IEnumerable<CustomerEntity>> GetAllCustomersWithAllContactDetailsAsync()
     {
-        throw new NotImplementedException();
+        try {
+            return await base._context.Customers
+            .Include(c => c.ContactInfo)
+            .Include(c => c.CustomerAddresses)
+                .ThenInclude(ca => ca.Address)
+            .ToListAsync();
+        }
+        catch (Exception ex) { throw new Exception("Could not retrieve customers with related contact details", ex); }
     }
-
-
-
-
-
 }
