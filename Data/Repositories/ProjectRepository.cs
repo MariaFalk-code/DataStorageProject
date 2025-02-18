@@ -1,19 +1,27 @@
 ﻿using Data.Context;
 using Data.Entities;
 using Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
-namespace Data.Repositories
+namespace Data.Repositories;
+
+public class ProjectRepository(DataContext context) : BaseRepository<ProjectEntity>(context), IProjectRepository
 {
-    public class ProjectRepository(DataContext context) : BaseRepository<ProjectEntity>(context), IProjectRepository
+    public async Task<IEnumerable<ProjectEntity>> GetAllProjectsByStatusAsync(int statusId)
     {
-        public Task<IEnumerable<ProjectEntity>> GetAllProjectsByStatusAsync(int statusId)
-        {
-            throw new NotImplementedException();
-        }
+        return await base._context.Projects
+            .Where(p => p.StatusId == statusId)
+            .Include(p => p.Status)
+            .Include(p => p.Manager)
+            .ToListAsync();
+    }
 
-        public Task<ProjectEntity?> GetProjectWithCustomerAndServiceUsageAsync(string ProjectNumber)
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<ProjectEntity?> GetProjectWithCustomerAndServiceUsageAsync(string ProjectNumber)
+    {
+        return await base._context.Projects
+            .Include(p => p.Customer)
+            .Include(p => p.ServiceUsages)
+            .ThenInclude(su => su.Service)
+            .FirstOrDefaultAsync(p => p.ProjectNumber == ProjectNumber);
     }
 }
