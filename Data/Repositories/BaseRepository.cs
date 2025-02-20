@@ -51,13 +51,13 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
         return await _dbSet.FirstOrDefaultAsync(expression);
     }
 
-    public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
+    public virtual async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? expression = null)
     {
-        return await _dbSet.ToListAsync();
+        return expression is not null ? await _dbSet.Where(expression).ToListAsync() : await _dbSet.ToListAsync();
     }
 
     //Update
-    public async Task<TEntity> UpdateAsync(TEntity entity) //Full Update
+    public async Task<TEntity> UpdateAsync(TEntity entity)
     {
         if (entity == null)
         {
@@ -66,31 +66,6 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
         try
         {
             _dbSet.Update(entity);
-            await _context.SaveChangesAsync();
-            return entity;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Could not update {nameof(TEntity)}", ex);
-        }
-    }
-
-    public async Task<TEntity> PartialUpdateAsync(Expression<Func<TEntity, bool>> expression, TEntity updatedEntity) //Selective Update
-    {
-        if (updatedEntity == null)
-        {
-            throw new ArgumentNullException(nameof(updatedEntity));
-        }
-
-        try
-        {
-            var entity = await _dbSet.FirstOrDefaultAsync(expression) ?? null!;
-            if (entity == null)
-            {
-                return null!;
-            }
-
-            _context.Entry(entity).CurrentValues.SetValues(updatedEntity);
             await _context.SaveChangesAsync();
             return entity;
         }
