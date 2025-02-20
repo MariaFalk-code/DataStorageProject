@@ -8,7 +8,7 @@ namespace Data.Interfaces
         Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> expression);
         Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> expression);
         Task<IEnumerable<TEntity>> GetAllAsync();
-        Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression);
+        Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> expression);
         Task<TEntity> PartialUpdateAsync(Expression<Func<TEntity, bool>> expression, TEntity updatedEntity);
         Task<TEntity> UpdateAsync(TEntity entity);
     }

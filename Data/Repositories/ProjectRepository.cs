@@ -2,11 +2,23 @@
 using Data.Entities;
 using Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Data.Repositories;
 
 public class ProjectRepository(DataContext context) : BaseRepository<ProjectEntity>(context), IProjectRepository
 {
+    public override async Task<ProjectEntity?> GetAsync(Expression<Func<ProjectEntity, bool>> expression)
+    {
+        if (expression == null)
+        {
+            throw new ArgumentNullException(nameof(expression));
+        }
+
+        return await base._context.Projects
+            .Include(p => p.Status)
+            .FirstOrDefaultAsync(expression);
+    }
     public async Task<IEnumerable<ProjectEntity>> GetAllProjectsByStatusAsync(int statusId)
     {
         return await base._context.Projects
@@ -20,6 +32,8 @@ public class ProjectRepository(DataContext context) : BaseRepository<ProjectEnti
     {
         return await base._context.Projects
             .Include(p => p.Customer)
+            .Include(p => p.Status)
+            .Include(p => p.Manager)
             .Include(p => p.ServiceUsages)
             .ThenInclude(su => su.Service)
             .FirstOrDefaultAsync(p => p.ProjectNumber == projectNumber);

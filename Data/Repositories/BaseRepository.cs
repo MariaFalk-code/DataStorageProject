@@ -41,17 +41,17 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
         return await _dbSet.AnyAsync(expression);
     }
 
-    public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression)
+    public virtual async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> expression)
     {
         if (expression == null)
         {
             throw new ArgumentNullException(nameof(expression));
         }
 
-        return await _dbSet.FirstOrDefaultAsync(expression) ?? null!;
+        return await _dbSet.FirstOrDefaultAsync(expression);
     }
 
-    public async Task<IEnumerable<TEntity>> GetAllAsync()
+    public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
     {
         return await _dbSet.ToListAsync();
     }
