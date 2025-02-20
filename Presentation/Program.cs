@@ -5,6 +5,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Data.Repositories;
 using Data.Interfaces;
+using Business.Models;
+using Business.Services;
+using Business.Interfaces;
 
 //Got help from ChatGPT4o with this code for configuring the database connection.
 var host = Host.CreateDefaultBuilder()
@@ -24,5 +27,11 @@ var host = Host.CreateDefaultBuilder()
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IAddressRepository, AddressRepository>();
         services.AddScoped<IServiceUsageRepository, ServiceUsageRepository>();
+        services.AddScoped<IContactInfoRepository, ContactInfoRepository>();
+        services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();
+        services.AddScoped<ICustomerService, CustomerService>();
     })
+
     .Build();
+
+
