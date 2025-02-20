@@ -34,4 +34,7 @@ var host = Host.CreateDefaultBuilder()
 
     .Build();
 
+var customerService = host.Services.GetRequiredService<ICustomerService>();
+
+
 

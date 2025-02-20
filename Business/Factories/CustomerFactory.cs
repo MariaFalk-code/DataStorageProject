@@ -1,5 +1,6 @@
 ﻿using Business.Models;
 using Data.Entities;
+using System.Xml;
 
 namespace Business.Factories;
 
@@ -57,6 +58,7 @@ public static class CustomerFactory
         var addressEntities = model.Addresses.Select(a => new AddressEntity
         {
             Street = a.Street,
+            StreetNumber = a.StreetNumber,
             City = a.City,
             PostalCode = a.PostalCode,
             Country = a.Country
@@ -87,7 +89,7 @@ public static class CustomerFactory
         if (!string.IsNullOrWhiteSpace(model.OrganizationNumber))
             customer.OrganizationNumber = model.OrganizationNumber;
 
-        if (model.ContactInfo is not null)
+        if (model.ContactInfo is not null && contactInfo is not null)
         {
             contactInfo.Email = model.ContactInfo.Email ?? contactInfo.Email;
             contactInfo.PhoneNumber = model.ContactInfo.PhoneNumber ?? contactInfo.PhoneNumber;
@@ -102,6 +104,7 @@ public static class CustomerFactory
                 if (existingAddress is not null)
                 {
                     existingAddress.Street = addr.Street;
+                    existingAddress.StreetNumber = addr.StreetNumber;
                     existingAddress.City = addr.City;
                     existingAddress.PostalCode = addr.PostalCode;
                     existingAddress.Country = addr.Country;
