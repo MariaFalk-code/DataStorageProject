@@ -5,7 +5,7 @@ namespace Business.Factories;
 
 public static class ContactInfoFactory
 {
-    public static ContactInfo CreateContactInfo(ContactInfoEntity contactInfo)
+    public static ContactInfo Create(ContactInfoEntity contactInfo)
     {
         return new ContactInfo
         {

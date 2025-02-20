@@ -5,7 +5,7 @@ namespace Business.Factories;
 
 public static class EmployeeFactory
 {
-    public static Employee CreateEmployee(EmployeeEntity employee)
+    public static Employee Create(EmployeeEntity employee)
     {
         return new Employee
         {

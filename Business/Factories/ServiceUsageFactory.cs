@@ -5,7 +5,7 @@ namespace Business.Factories;
 
 public static class ServiceUsageFactory
 {
-    public static ServiceUsage CreateServiceUsage(ServiceUsageEntity serviceUsage, ServiceEntity service)
+    public static ServiceUsage Create(ServiceUsageEntity serviceUsage, ServiceEntity service)
     {
         return new ServiceUsage
         {

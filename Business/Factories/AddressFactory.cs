@@ -5,7 +5,7 @@ namespace Business.Factories;
 
 public static class AddressFactory
 {
-    public static Address CreateAddress(AddressEntity address, CustomerAddressEntity customerAddress)
+    public static Address Create(AddressEntity address, CustomerAddressEntity customerAddress)
     {
         return new Address
         {

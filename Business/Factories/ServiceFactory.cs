@@ -5,7 +5,7 @@ namespace Business.Factories;
 
 public static class ServiceFactory
 {
-    public static Service CreateService(ServiceEntity service)
+    public static Service Create(ServiceEntity service)
     {
         return new Service
         {

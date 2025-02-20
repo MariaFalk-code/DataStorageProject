@@ -1,5 +1,4 @@
 ﻿using Business.Models;
-using Data.Entities;
 
 public class Customer
 {
@@ -10,21 +9,5 @@ public class Customer
     public ContactInfo? ContactInfo { get; set; }
     public List<Address>? Addresses { get; set; }
     public List<Project>? Projects { get; set; }
-
-    public Customer(CustomerEntity entity)
-    {
-        Id = entity.Id;
-        OrganizationNumber = entity.OrganizationNumber;
-        Name = entity.Name;
-
-        if (entity.ContactInfo is not null)
-            ContactInfo = new ContactInfo(entity.ContactInfo);
-
-        if (entity.CustomerAddresses is not null)
-            Addresses = entity.CustomerAddresses.Select(ca => new Address(ca.Address)).ToList();
-
-        if (entity.Projects is not null)
-            Projects = entity.Projects.Select(p => new Project(p)).ToList();
-    }
 }
 
