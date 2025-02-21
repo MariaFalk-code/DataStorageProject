@@ -55,7 +55,8 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
         modelBuilder.Entity<ServiceUsageEntity>()
             .HasOne(su => su.Project)
             .WithMany(p => p.ServiceUsages)
-            .HasForeignKey(su => su.ProjectNumber);
+            .HasForeignKey(su => su.ProjectNumber)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<ProjectEntity>()
             .HasOne(p => p.Customer)

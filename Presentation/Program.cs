@@ -34,24 +34,6 @@ var host = Host.CreateDefaultBuilder()
     })
     .Build();
 
-var projectService = host.Services.GetRequiredService<IProjectService>();
-
-
-var updateModel = new ProjectUpdateModel
-{
-    Name = "Updated Office System",
-    Description = "New description for the office system project.",
-    StatusId = 2, // Assuming 2 = "In Progress"
-    ManagerId = 3, // Assuming manager with ID 3 exists
-    StartDate = DateTime.UtcNow,
-    EndDate = DateTime.UtcNow.AddMonths(6)
-};
-
-var updateResult = await projectService.UpdateProjectAsync("P-1001", updateModel);
-Console.WriteLine(updateResult ? "✅ Project Updated Successfully!" : "❌ Failed to Update Project");
-
-
-
 
 
 
