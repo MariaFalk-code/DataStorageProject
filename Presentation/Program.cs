@@ -5,9 +5,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Data.Repositories;
 using Data.Interfaces;
-using Business.Models;
 using Business.Services;
 using Business.Interfaces;
+using Business.Models;
 
 //Got help from ChatGPT4o with this code for configuring the database connection.
 var host = Host.CreateDefaultBuilder()
@@ -30,11 +30,25 @@ var host = Host.CreateDefaultBuilder()
         services.AddScoped<IContactInfoRepository, ContactInfoRepository>();
         services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();
         services.AddScoped<ICustomerService, CustomerService>();
+        services.AddScoped<IProjectService, ProjectService>();
     })
-
     .Build();
 
-var customerService = host.Services.GetRequiredService<ICustomerService>();
+var projectService = host.Services.GetRequiredService<IProjectService>();
+
+var newProject = new ProjectRegistrationModel
+{
+    Name = "New Office System",
+    Description = "Developing an internal office management system.",
+    CustomerId = 3, // Replace with a valid customer ID
+    ManagerId = null, // No manager assigned yet (optional)
+    StartDate = DateTime.UtcNow,
+    EndDate = DateTime.UtcNow.AddMonths(3) // 3-month project duration
+};
+
+var result = await projectService.CreateProjectAsync(newProject);
+Console.WriteLine(result ? "✅ Project Created Successfully!" : "❌ Failed to Create Project");
+
 
 
 

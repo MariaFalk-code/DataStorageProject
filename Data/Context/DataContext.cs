@@ -74,7 +74,16 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
             .HasForeignKey(p => p.ManagerId)
             .HasPrincipalKey(e => e.EmployeeNumber)
             .OnDelete(DeleteBehavior.SetNull);
-    
+
+        //Indexes
+        modelBuilder.Entity<CustomerEntity>()
+            .HasIndex(c => c.OrganizationNumber)
+            .IsUnique();
+
+        modelBuilder.Entity<ContactInfoEntity>()
+            .HasIndex(ci => ci.Email)
+            .IsUnique();
+
         //Seeding the database
         base.OnModelCreating(modelBuilder);
 

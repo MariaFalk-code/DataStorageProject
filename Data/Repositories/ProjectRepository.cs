@@ -19,6 +19,12 @@ public class ProjectRepository(DataContext context) : BaseRepository<ProjectEnti
             .Include(p => p.Status)
             .FirstOrDefaultAsync(expression);
     }
+    public async Task<ProjectEntity?> GetLatestProjectAsync()
+    {
+        return await _context.Projects
+            .OrderByDescending(p => p.ProjectNumber)
+            .FirstOrDefaultAsync();
+    }
     public async Task<IEnumerable<ProjectEntity>> GetAllProjectsByStatusAsync(int statusId)
     {
         return await base._context.Projects
