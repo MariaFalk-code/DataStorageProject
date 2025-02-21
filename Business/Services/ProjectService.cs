@@ -61,9 +61,19 @@ public class ProjectService(
             throw new Exception("Could not get project", ex);
         }
     }
-    public Task<IEnumerable<Project>> GetProjectsByStatusAsync(string status)
+    public async Task<IEnumerable<Project>> GetProjectsByStatusAsync(int statusId)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var projectEntities = await _projectRepository.GetAllProjectsByStatusAsync(statusId);
+            return projectEntities
+                .Select(p => ProjectFactory.Create(p, includeCustomer: true, includeManager: true))
+                .ToList();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Could not get projects", ex);
+        }
     }
 
     public Task<bool> DeleteProjectAsync(string projectNumber)

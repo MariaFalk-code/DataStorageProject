@@ -36,19 +36,23 @@ var host = Host.CreateDefaultBuilder()
 
 var projectService = host.Services.GetRequiredService<IProjectService>();
 
-var project = await projectService.GetProjectAsync("P-1002"); // Replace 1 with a valid ID
-if (project is not null)
-    if (project is not null)
-    {
-        Console.WriteLine($"✅ Project Found: {project.Name} ({project.ProjectNumber})");
-        Console.WriteLine($"📌 Status: {project.Status.Name}");
-        Console.WriteLine($"📅 Start: {project.StartDate}, End: {project.EndDate}");
 
-    }
-    else
+var status = 1; // Change this to any valid status name in the database
+var projects = await projectService.GetProjectsByStatusAsync(status);
+
+if (projects.Any())
+{
+    Console.WriteLine($"✅ Found {projects.Count()} projects with status '{status}':");
+    foreach (var project in projects)
     {
-        Console.WriteLine("❌ Project Not Found");
+        Console.WriteLine($"🔹 {project.Name} ({project.ProjectNumber}) - Customer: {project.Customer?.Id}");
     }
+}
+else
+{
+    Console.WriteLine($"❌ No projects found with status '{status}'.");
+}
+
 
 
 

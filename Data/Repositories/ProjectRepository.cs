@@ -31,6 +31,7 @@ public class ProjectRepository(DataContext context) : BaseRepository<ProjectEnti
             .Where(p => p.StatusId == statusId)
             .Include(p => p.Status)
             .Include(p => p.Manager)
+            .Include(p => p.Customer)
             .ToListAsync();
     }
 
