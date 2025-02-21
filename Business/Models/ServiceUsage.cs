@@ -9,6 +9,5 @@ public class ServiceUsage
     public decimal Quantity { get; set; }
     public decimal Price { get; set; }
     public string Unit { get; set; } = null!;
-    public decimal TotalPrice => Quantity * Price;
-
+    public decimal TotalPrice { get; set; }
 }

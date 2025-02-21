@@ -36,18 +36,21 @@ var host = Host.CreateDefaultBuilder()
 
 var projectService = host.Services.GetRequiredService<IProjectService>();
 
-var newProject = new ProjectRegistrationModel
-{
-    Name = "New Office System",
-    Description = "Developing an internal office management system.",
-    CustomerId = 3, // Replace with a valid customer ID
-    ManagerId = null, // No manager assigned yet (optional)
-    StartDate = DateTime.UtcNow,
-    EndDate = DateTime.UtcNow.AddMonths(3) // 3-month project duration
-};
+var project = await projectService.GetProjectAsync("P-1002"); // Replace 1 with a valid ID
+if (project is not null)
+    if (project is not null)
+    {
+        Console.WriteLine($"✅ Project Found: {project.Name} ({project.ProjectNumber})");
+        Console.WriteLine($"📌 Status: {project.Status.Name}");
+        Console.WriteLine($"📅 Start: {project.StartDate}, End: {project.EndDate}");
 
-var result = await projectService.CreateProjectAsync(newProject);
-Console.WriteLine(result ? "✅ Project Created Successfully!" : "❌ Failed to Create Project");
+    }
+    else
+    {
+        Console.WriteLine("❌ Project Not Found");
+    }
+
+
 
 
 

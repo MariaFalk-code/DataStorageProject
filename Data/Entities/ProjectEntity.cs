@@ -22,7 +22,7 @@ public class ProjectEntity
     public DateTime StartDate { get; set; }
     [Required]
     [Column(TypeName = "date")]
-    public DateTime EndDate { get; set; }
+    public DateTime? EndDate { get; set; }
 
     [ForeignKey("Customer")]
     public int CustomerId { get; set; }

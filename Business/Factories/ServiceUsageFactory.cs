@@ -16,6 +16,7 @@ public static class ServiceUsageFactory
             Quantity = serviceUsage.Quantity,
             Price = service.Price,
             Unit = service.Unit,
+            TotalPrice = serviceUsage.Quantity * service.Price
         };
     }
 }

@@ -37,28 +37,44 @@ public class ProjectService(
             throw new Exception("Could not create project", ex);
         }
     }
-
-    public Task<bool> DeleteProjectAsync(int projectId)
+    public async Task<Project?> GetProjectAsync(string projectNumber)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var projectEntity = await _projectRepository.GetAsync(p => p.ProjectNumber == projectNumber);
+            return projectEntity is not null ? ProjectFactory.Create(projectEntity) : null;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Could not get project", ex);
+        }
     }
-
-    public Task<Project?> GetProjectAsync(int projectId)
+    public async Task<Project?> GetProjectWithCustomerAndServiceUsageAsync(string projectNumber)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var projectEntity = await _projectRepository.GetProjectWithCustomerAndServiceUsageAsync(projectNumber);
+            return projectEntity is not null ? ProjectFactory.Create(projectEntity, includeCustomer: true, includeManager: true, includeServiceUseage: true) : null;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Could not get project", ex);
+        }
     }
-
     public Task<IEnumerable<Project>> GetProjectsByStatusAsync(string status)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Project?> GetProjectWithCustomerAndServiceUsageAsync(string projectNumber)
+    public Task<bool> DeleteProjectAsync(string projectNumber)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> UpdateProjectAsync(int projectId, ProjectUpdateModel updatedProject)
+
+
+
+    public Task<bool> UpdateProjectAsync(string projectNumber, ProjectUpdateModel updatedProject)
     {
         throw new NotImplementedException();
     }
