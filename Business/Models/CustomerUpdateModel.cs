@@ -17,17 +17,14 @@ public class CustomerUpdateModel
     public List<AddressUpdateModel>? Addresses { get; set; }
 
     // Contact Info
-    [Required(ErrorMessage = "Contact ID is required.")]
-    public int ContactId { get; set; }
-
-    [EmailAddress(ErrorMessage = "Invalid email format.")]
-    public string? Email { get; set; }
-
-    [Phone(ErrorMessage = "Invalid phone number format.")]
-    public string? PhoneNumber { get; set; }
-
-    [StringLength(100, ErrorMessage = "Contact person name must be at most 100 characters.")]
-    public string? ContactPerson { get; set; }
+        [Required(ErrorMessage = "Contact ID is required.")]
+        public int ContactId { get; set; }
+        [EmailAddress(ErrorMessage = "Invalid email format.")]
+        public string? Email { get; set; }
+        [Phone(ErrorMessage = "Invalid phone number format.")]
+        public string? PhoneNumber { get; set; }
+        [StringLength(100, ErrorMessage = "Contact person name must be at most 100 characters.")]
+        public string? ContactPerson { get; set; }
 
     // Address Updates
     public class AddressUpdateModel

@@ -24,6 +24,20 @@ public class CustomerService(
         if (model == null)
             return false;
 
+        var existingCustomer = await _customerRepository.GetAsync(c => c.OrganizationNumber == model.OrganizationNumber);
+        if (existingCustomer != null)
+        {
+            Console.WriteLine($"A customer with Organization Number '{model.OrganizationNumber}' already exists.");
+            return false;
+        }
+
+        var existingEmail = await _customerRepository.GetAsync(c => c.ContactInfo.Email == model.Email);
+        if (existingEmail != null)
+        {
+            Console.WriteLine($"A customer with Email '{model.Email}' already exists.");
+            return false;
+        }
+
         var (customer, contactInfo, addresses, customerAddresses) = CustomerFactory.CreateEntities(model);
 
         try {

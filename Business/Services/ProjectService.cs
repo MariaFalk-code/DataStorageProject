@@ -1,29 +1,21 @@
 ﻿using Business.Factories;
 using Business.Interfaces;
 using Business.Models;
-using Business.Resources;
 using Data.Interfaces;
 using System.Runtime.CompilerServices;
 
 namespace Business.Services;
 
 public class ProjectService(
-    ICustomerRepository customerRepository,
     IProjectRepository projectRepository,
-    IServiceUsageRepository serviceUsageRepository,
-    IServiceRepository serviceRepository) : IProjectService
+    IServiceUsageRepository serviceUsageRepository) : IProjectService
 {
-    private readonly ICustomerRepository _customerRepository = customerRepository;
     private readonly IProjectRepository _projectRepository = projectRepository;
     private readonly IServiceUsageRepository _serviceUsageRepository = serviceUsageRepository;
-    private readonly IServiceRepository _serviceRepository = serviceRepository;
 
     public async Task<bool> CreateProjectAsync(ProjectRegistrationModel model)
     {
-        if (model is null)
-        {
-            throw new ArgumentNullException(nameof(model));
-        }
+        ArgumentNullException.ThrowIfNull(model);
 
         var projectEntity = await ProjectFactory.CreateEntity(model, _projectRepository);
 
@@ -85,7 +77,7 @@ public class ProjectService(
                 return false;
             }
             if (updatedModel != null)
-            ProjectFactory.UpdateEntity(updatedModel, projectEntity, _projectRepository);
+            ProjectFactory.UpdateEntity(updatedModel, projectEntity);
             await _projectRepository.UpdateAsync(projectEntity);
             return true;
         }

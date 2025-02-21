@@ -88,12 +88,12 @@ public static class CustomerFactory
         if (!string.IsNullOrWhiteSpace(model.OrganizationNumber))
             customer.OrganizationNumber = model.OrganizationNumber;
 
-        if (model.ContactInfo is not null && contactInfo is not null)
-        {
-            contactInfo.Email = model.ContactInfo.Email ?? contactInfo.Email;
-            contactInfo.PhoneNumber = model.ContactInfo.PhoneNumber ?? contactInfo.PhoneNumber;
-            contactInfo.ContactPerson = model.ContactInfo.ContactPerson ?? contactInfo.ContactPerson;
-        }
+        if (string.IsNullOrWhiteSpace(model.Email))
+            contactInfo.Email = model.Email ?? contactInfo.Email;
+        if (string.IsNullOrWhiteSpace(model.PhoneNumber))
+            contactInfo.PhoneNumber = model.PhoneNumber ?? contactInfo.PhoneNumber;
+        if (string.IsNullOrWhiteSpace(model.ContactPerson))
+            contactInfo.ContactPerson = model.ContactPerson ?? contactInfo.ContactPerson;
 
         if (model.Addresses is not null)
         {

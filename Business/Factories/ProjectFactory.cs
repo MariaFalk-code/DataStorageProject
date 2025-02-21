@@ -17,7 +17,7 @@ public static class ProjectFactory
             Description = entity.Description,
             Status = new Status { Id = entity.Status.Id, Name = entity.Status.Name },
             StartDate = entity.StartDate,
-            EndDate = (DateTime)entity.EndDate!,
+            EndDate = entity.EndDate ?? null
         };
 
         if (includeCustomer && entity.Customer is not null)
@@ -46,11 +46,11 @@ public static class ProjectFactory
             CustomerId = model.CustomerId,
             ManagerId = model.ManagerId,
             StartDate = model.StartDate,
-            EndDate = (DateTime)model.EndDate!
+            EndDate = model.EndDate ?? null
         };
     }
 
-    public static void UpdateEntity(ProjectUpdateModel updatedModel, ProjectEntity entity, IProjectRepository projectRepository)
+    public static void UpdateEntity(ProjectUpdateModel updatedModel, ProjectEntity entity)
     {
         entity.Name = updatedModel.Name ?? entity.Name;
         entity.Description = updatedModel.Description ?? entity.Description;

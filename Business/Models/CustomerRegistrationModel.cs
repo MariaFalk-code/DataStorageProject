@@ -28,7 +28,7 @@ public class CustomerRegistrationModel
 
     // Addresses (Must have at least one)
     [MinLength(1, ErrorMessage = "At least one address must be provided.")]
-    public List<AddressInputModel> Addresses { get; set; } = new();
+    public List<AddressInputModel> Addresses { get; set; } = [];
 }
 
 public class AddressInputModel
