@@ -49,5 +49,15 @@ public static class ProjectFactory
             EndDate = (DateTime)model.EndDate!
         };
     }
+
+    public static void UpdateEntity(ProjectUpdateModel updatedModel, ProjectEntity entity, IProjectRepository projectRepository)
+    {
+        entity.Name = updatedModel.Name ?? entity.Name;
+        entity.Description = updatedModel.Description ?? entity.Description;
+        entity.StatusId = updatedModel.StatusId ?? entity.StatusId;
+        entity.ManagerId = updatedModel.ManagerId ?? entity.ManagerId;
+        entity.StartDate = updatedModel.StartDate ?? entity.StartDate;
+        entity.EndDate = updatedModel.EndDate ?? entity.EndDate;
+    }
 }
 

@@ -37,21 +37,19 @@ var host = Host.CreateDefaultBuilder()
 var projectService = host.Services.GetRequiredService<IProjectService>();
 
 
-var status = 1; // Change this to any valid status name in the database
-var projects = await projectService.GetProjectsByStatusAsync(status);
+var updateModel = new ProjectUpdateModel
+{
+    Name = "Updated Office System",
+    Description = "New description for the office system project.",
+    StatusId = 2, // Assuming 2 = "In Progress"
+    ManagerId = 3, // Assuming manager with ID 3 exists
+    StartDate = DateTime.UtcNow,
+    EndDate = DateTime.UtcNow.AddMonths(6)
+};
 
-if (projects.Any())
-{
-    Console.WriteLine($"✅ Found {projects.Count()} projects with status '{status}':");
-    foreach (var project in projects)
-    {
-        Console.WriteLine($"🔹 {project.Name} ({project.ProjectNumber}) - Customer: {project.Customer?.Id}");
-    }
-}
-else
-{
-    Console.WriteLine($"❌ No projects found with status '{status}'.");
-}
+var updateResult = await projectService.UpdateProjectAsync("P-1001", updateModel);
+Console.WriteLine(updateResult ? "✅ Project Updated Successfully!" : "❌ Failed to Update Project");
+
 
 
 

@@ -75,16 +75,26 @@ public class ProjectService(
             throw new Exception("Could not get projects", ex);
         }
     }
-
-    public Task<bool> DeleteProjectAsync(string projectNumber)
+    public async Task<bool> UpdateProjectAsync(string projectNumber, ProjectUpdateModel updatedModel)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var projectEntity = await _projectRepository.GetAsync(p => p.ProjectNumber == projectNumber);
+            if (projectEntity is null)
+            {
+                return false;
+            }
+            if (updatedModel != null)
+            ProjectFactory.UpdateEntity(updatedModel, projectEntity, _projectRepository);
+            await _projectRepository.UpdateAsync(projectEntity);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Could not update project", ex);
+        }
     }
-
-
-
-
-    public Task<bool> UpdateProjectAsync(string projectNumber, ProjectUpdateModel updatedProject)
+    public Task<bool> DeleteProjectAsync(string projectNumber)
     {
         throw new NotImplementedException();
     }
