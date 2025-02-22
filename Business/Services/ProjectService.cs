@@ -29,6 +29,11 @@ public class ProjectService(
             throw new Exception("Could not create project", ex);
         }
     }
+    public async Task<bool> HasRelatedServiceUsagesAsync(string projectNumber)
+    {
+        return await _serviceUsageRepository.ExistsAsync(su => su.ProjectNumber == projectNumber);
+    }
+
     public async Task<Project?> GetProjectAsync(string projectNumber)
     {
         try
@@ -96,18 +101,6 @@ public class ProjectService(
                 return false;
             }
 
-            bool hasServiceUsage = await _serviceUsageRepository.ExistsAsync(su => su.ProjectNumber == projectEntity.ProjectNumber);
-
-            if (hasServiceUsage)
-                Console.WriteLine($"⚠️ Project {projectEntity.ProjectNumber} has related services.");
-            Console.Write("Are you sure you want to delete it? (y/n): ");
-             char confirmation = Console.ReadKey().KeyChar;
-
-            if (char.ToLower(confirmation) != 'y')
-            {
-                Console.WriteLine("\n Deletion canceled.");
-                return false;
-            }
             await _projectRepository.DeleteAsync(p => p.ProjectNumber == projectNumber);
             Console.WriteLine($"Project {projectEntity.ProjectNumber} deleted successfully!");
             return true;

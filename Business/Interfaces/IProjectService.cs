@@ -6,6 +6,7 @@ namespace Business.Interfaces;
 public interface IProjectService
 {
     Task<bool> CreateProjectAsync(ProjectRegistrationModel project);
+    Task<bool> HasRelatedServiceUsagesAsync(string projectNumber);
     Task<Project?> GetProjectAsync(string projectNumber);
     Task<Project?> GetProjectWithCustomerAndServiceUsageAsync(string projectNumber);
     Task<IEnumerable<Project>> GetProjectsByStatusAsync(int statusid);

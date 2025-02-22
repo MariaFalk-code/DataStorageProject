@@ -20,7 +20,7 @@ public class ProjectEntity
     [Required]
     [Column(TypeName = "date")]
     public DateTime StartDate { get; set; }
-    [Required]
+    
     [Column(TypeName = "date")]
     public DateTime? EndDate { get; set; }
 

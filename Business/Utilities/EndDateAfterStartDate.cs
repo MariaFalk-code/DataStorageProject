@@ -11,13 +11,8 @@ namespace Business.Utilities
         {
             var model = (ProjectRegistrationModel)validationContext.ObjectInstance;
 
-            // 🔹 Ensure EndDate is provided before validating
-            if (!model.EndDate.HasValue)
-            {
-                return ValidationResult.Success; // ✅ No EndDate = No validation needed
-            }
+            if (!model.EndDate.HasValue) return ValidationResult.Success;  // ✅ Allow null EndDate
 
-            // 🔹 Validate only if EndDate has a value
             if (model.EndDate.Value <= model.StartDate)
             {
                 return new ValidationResult("End date must be after start date.");
@@ -27,5 +22,6 @@ namespace Business.Utilities
         }
     }
 }
+
 
 

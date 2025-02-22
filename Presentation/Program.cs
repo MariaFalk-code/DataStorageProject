@@ -7,7 +7,7 @@ using Data.Repositories;
 using Data.Interfaces;
 using Business.Services;
 using Business.Interfaces;
-using Business.Utilities;
+using Presentation.MenuDialogs;
 
 //Got help from ChatGPT4o with this code for configuring the database connection.
 var host = Host.CreateDefaultBuilder()
@@ -33,6 +33,13 @@ var host = Host.CreateDefaultBuilder()
         services.AddScoped<IProjectService, ProjectService>();
     })
     .Build();
+
+using var scope = host.Services.CreateScope();
+var services = scope.ServiceProvider;
+var projectService = services.GetRequiredService<IProjectService>();
+
+var menuDialogs = new MenuDialogs(projectService);
+menuDialogs.RunMainMenu();
 
 
 
